@@ -4,6 +4,7 @@ import 'package:products/models/product/product_model.dart';
 import 'package:products/services/auth/auth_service.dart';
 import 'package:products/services/connection_service.dart';
 import 'package:products/services/product/product_list_service.dart';
+import 'package:products/widgets/product/products_listview.dart';
 import 'package:products/widgets/status_message.dart';
 
 class Home extends StatefulWidget {
@@ -176,7 +177,20 @@ class _HomeState extends State<Home> {
                     textColor: !productListService.internetConnectionAvailability ? Colors.black : Colors.white,
                   );
                 } else if (snapshot.hasData) {
-                  // TODO: return products list
+                  final productsList = snapshot.data as List<ProductModel>;
+
+                  return ProductsListView(
+                    productsList: productsList,
+                    scrollController: scrollController,
+                    selectedListType: selectedListType.value,
+                  );
+                } else {
+                  return const StatusMessage(
+                    message: 'Not able to retrieve products',
+                    bannerMessage: 'error',
+                    bannerColor: Colors.red,
+                    textColor: Colors.white,
+                  );
                 }
             }
 

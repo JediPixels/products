@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:products/models/product/product_model.dart';
 import 'package:intl/intl.dart';
+import 'package:products/widgets/star_rating.dart';
 
 class ProductsListViewItemCard extends StatelessWidget {
   const ProductsListViewItemCard({
@@ -74,7 +75,7 @@ class ProductsListViewItemCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // StarRating(rating: productModel[index].rating),
+                    StarRating(rating: productModel[index].rating),
                     Text('Rating: ${productModel[index].rating}'),
                   ],
                 ),
