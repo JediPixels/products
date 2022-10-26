@@ -4,6 +4,7 @@ import 'package:products/models/product/product_model.dart';
 import 'package:products/services/auth/auth_service.dart';
 import 'package:products/services/connection_service.dart';
 import 'package:products/services/product/product_list_service.dart';
+import 'package:products/services/product/product_service.dart';
 import 'package:products/widgets/product/products_listview.dart';
 import 'package:products/widgets/status_message.dart';
 
@@ -16,7 +17,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late ConnectionService connectionService;
-  // late ProductService productService;
+  late ProductService productService;
   AuthServiceResponse authServiceResponse = AuthServiceResponse();
   final ProductListService productListService = ProductListService();
   final ScrollController scrollController = ScrollController();
@@ -27,19 +28,23 @@ class _HomeState extends State<Home> {
     super.initState();
     connectionService = ConnectionService(productListService);
     connectionService.watchConnectivity(productListService);
+    productService = ProductService(productListService);
     getAuth();
 
     // Check if scroll has reached the bottom, then retrieve the next 10 records/products
     scrollController.addListener(() {
       if (scrollController.offset == scrollController.position.maxScrollExtent && !productListService.isProductLoading) {
-        // TODO: Get Products... the next 10 products.
+        getProducts();
       }
     });
   }
 
   @override
   void dispose() {
-    // BEFORE...
+    // authService does not need disposing
+    connectionService.cancel();
+    productListService.dispose();
+    scrollController.dispose();
     super.dispose();
   }
 
@@ -63,7 +68,7 @@ class _HomeState extends State<Home> {
     authServiceResponse = await AuthService.login();
     if (authServiceResponse.statusCode == 200 && authServiceResponse.error != 'Error Response') {
       productListService.isProductLoading = false;
-      // TODO: Get products
+      getProducts();
     } else {
       productListService.isProductLoading = false;
       final String error = authServiceResponse.error;
@@ -72,7 +77,25 @@ class _HomeState extends State<Home> {
   }
 
   Future<void> getProducts() async {
+    if (productListService.isProductLoading) {
+      return;
+    }
+    productListService.isProductLoading = true;
 
+    // Make sure we did not loose connectivity since our last products fetch
+    productListService.internetConnectionAvailability = await checkInternetConnection();
+    if (!productListService.internetConnectionAvailability) {
+      return;
+    }
+
+    // Future Enhancement: Check if authServiceResponse has not expired, otherwise re-Authenticated
+    if (authServiceResponse.token.isEmpty) {
+      getAuth();
+      return;
+    }
+
+    // Retrieve the next products
+    productService.getProducts(authServiceResponse.token);
   }
 
   @override

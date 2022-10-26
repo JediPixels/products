@@ -11,7 +11,7 @@ class ProductsListModel {
 
   List<ProductModel> products;
   int total;
-  int skip;
+  String skip; // TODO: The DummyJson.com Mockup Service is returning a String instead of an Integer. Once they fix it, change the String back to Int.
   int limit;
 
   factory ProductsListModel.fromRawJson(String str) => ProductsListModel.fromJson(json.decode(str));
