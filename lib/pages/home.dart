@@ -215,11 +215,15 @@ class _HomeState extends State<Home> {
                     textColor: Colors.white,
                   );
                 }
+              default:
+                return const StatusMessage(
+                  message: 'Nothing to Show',
+                  bannerMessage: 'nothing',
+                  bannerColor: Colors.yellow,
+                  textColor: Colors.black,
+                );
             }
-
-            return const Text('Hello');
           },
-
         ),
       ),
     );
