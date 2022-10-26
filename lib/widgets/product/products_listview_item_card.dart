@@ -49,6 +49,11 @@ class ProductsListViewItemCard extends StatelessWidget {
                 },
               ),
             ),
+            // child: FadeInImage.assetNetwork(
+            //   placeholder: 'assets/images/placeholder-image.png',
+            //   fit:  BoxFit.cover,
+            //   image: productModel[index].thumbnail,
+            // ),
           ),
           ListTile(
             title: Text(productModel[index].title),
