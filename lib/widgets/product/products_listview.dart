@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:products/helpers/app_helpers.dart';
 import 'package:products/models/product/product_model.dart';
 import 'package:products/widgets/product/products_listview_item1.dart';
+import 'package:products/widgets/product/products_listview_item2.dart';
 import 'package:products/widgets/product/products_listview_item_card.dart';
 
 class ProductsListView extends StatelessWidget {
@@ -32,8 +33,8 @@ class ProductsListView extends StatelessWidget {
                 return ProductsListViewItemCard(productModel: productsList, index: index);
               case SelectedListType.list1:
                 return ProductsListViewItem1(productModel: productsList, index: index);
-              // case SelectedListType.list2:
-              //   return ProductsListViewItem2(productModel: productsList, index: index);
+              case SelectedListType.list2:
+                return ProductsListViewItem2(productModel: productsList, index: index);
             }
           },
           childCount: productsList.length,
