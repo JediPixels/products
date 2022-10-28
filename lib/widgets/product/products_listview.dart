@@ -28,6 +28,7 @@ class ProductsListView extends StatelessWidget {
         ),
         SliverList(
           delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+            // debugPrint('BUILD SliverChildBuilderDelegate - $index');
             switch (selectedListType) {
               case SelectedListType.card:
                 return ProductsListViewItemCard(productModel: productsList, index: index);
@@ -44,5 +45,42 @@ class ProductsListView extends StatelessWidget {
     );
 
     // TODO: Create with a ListView.builder and ListView.separated to test performance
+    // debugPrint('BUILD: ${productsList.length}');
+    // switch (selectedListType) {
+    //   case SelectedListType.card:
+    //     return ListView.builder(
+    //       itemCount: productsList.length,
+    //       controller: scrollController,
+    //       physics: const AlwaysScrollableScrollPhysics(),
+    //       itemBuilder: (BuildContext context, int index) {
+    //         debugPrint('BUILD Card - ListView.builder $index');
+    //         return ProductsListViewItemCard(productModel: productsList, index: index);
+    //       },
+    //     );
+    //
+    //   case SelectedListType.list1:
+    //     return ListView.separated(
+    //       itemCount: productsList.length,
+    //       controller: scrollController,
+    //       physics: const AlwaysScrollableScrollPhysics(),
+    //       itemBuilder: (BuildContext context, int index) {
+    //         debugPrint('BUILD LIst 1 - ListView.separated $index');
+    //         return ProductsListViewItem1(productModel: productsList, index: index);
+    //       },
+    //       separatorBuilder: (BuildContext context, int index) => const Divider(),
+    //     );
+    //
+    //   case SelectedListType.list2:
+    //     return ListView.separated(
+    //       itemCount: productsList.length,
+    //       controller: scrollController,
+    //       physics: const AlwaysScrollableScrollPhysics(),
+    //       itemBuilder: (BuildContext context, int index) {
+    //         debugPrint('BUILD List 2 - ListView.separated $index');
+    //         return ProductsListViewItem2(productModel: productsList, index: index);
+    //       },
+    //       separatorBuilder: (BuildContext context, int index) => const Divider(),
+    //     );
+    // }
   }
 }
