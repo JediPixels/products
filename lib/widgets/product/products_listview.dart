@@ -44,7 +44,8 @@ class ProductsListView extends StatelessWidget {
       ],
     );
 
-    // TODO: Create with a ListView.builder and ListView.separated to test performance
+    // Test with a ListView.builder and ListView.separated to test performance
+    // Notice under certain circumstances the ListView.builder rebuilds all rows
     // debugPrint('BUILD: ${productsList.length}');
     // switch (selectedListType) {
     //   case SelectedListType.card:
