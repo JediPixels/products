@@ -8,6 +8,60 @@ Source Code: [GitHub](https://github.com/JediPixels/products)
 
 # ![](https://github.com/JediPixels/products/blob/master/readmeassets/Products_Light_Dark_Mode_Full_480.gif)
 
+**Timeline**  
+00:00:00 - Part 1 Intro
+00:04:43 - Part 2
+00:39:42 - Part 3
+01:48:32 - Part 4
+02:34:49 - Part 5
+03:30:15 - Part 6
+04:00:22 - Part 7
+04:48:53 - Part 8
+05:39:56 - Part 9
+06:11:37 - Part 10
+06:34:01 - Outro
+
+---
+In this project, this is a small partial list of what you are going to take a look at:
+
+-   API
+-   Auth
+-   Auth to load Products Feed
+-   Check the Internet Connection
+-   json.decode
+-   Isolate
+-   compute - Spawn a Isolate
+-   Isolate.spawn
+-   StreamBuilder
+-   StreamController
+-   Sink
+-   Streams
+-   ValueListenableBuilder
+-   ValueNotifier
+-   ScrollController
+-   ListView
+-   ListTile  
+    ThemeData()
+-   SliverToBoxAdapter
+-   SliverList
+-   SliverChildBuilderDelegate
+-   RoundedRectangleBorder
+-   AspectRatio
+-   Image.network
+-   FadeInImage
+-   loadingBuilder
+-   ImageChunkEvent
+-   NumberFormat.simpleCurrency()
+-   NumberFormat.percentPattern()
+-   Services
+-   Models
+-   Widgets
+-   Helpers
+-   Business Logic
+-   UI/ UX
+-   packages
+---
+
 ## Part 1 – Introduction
 
 **What we’ll cover:**
