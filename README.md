@@ -6,7 +6,7 @@ Video Tutorial: [YouTube Video](https://youtu.be/wXy-8L1G3xA)
 Blog: [Article](https://jedipixels.dev/flutter-products-full-app-tutorial)  
 Source Code: [GitHub](https://github.com/JediPixels/products)
 
-# ![](https://github.com/JediPixels/products/readmeassets/Products_Light_Dark_Mode_Full_480.gif)
+# ![](https://github.com/JediPixels/products/blob/master/readmeassets/Products_Light_Dark_Mode_Full_480.gif)
 
 ## Part 1 – Introduction
 
