@@ -21,7 +21,8 @@ class _HomeState extends State<Home> {
   AuthServiceResponse authServiceResponse = AuthServiceResponse();
   final ProductListService productListService = ProductListService();
   final ScrollController scrollController = ScrollController();
-  ValueNotifier<SelectedListType> selectedListType = ValueNotifier<SelectedListType>(SelectedListType.card);
+  ValueNotifier<SelectedListType> selectedListType =
+      ValueNotifier<SelectedListType>(SelectedListType.card);
 
   @override
   void initState() {
@@ -33,7 +34,9 @@ class _HomeState extends State<Home> {
 
     // Check if scroll has reached the bottom, then retrieve the next 10 records/products
     scrollController.addListener(() {
-      if (scrollController.offset == scrollController.position.maxScrollExtent && !productListService.isProductLoading) {
+      if (scrollController.offset ==
+              scrollController.position.maxScrollExtent &&
+          !productListService.isProductLoading) {
         getProducts();
       }
     });
@@ -49,24 +52,28 @@ class _HomeState extends State<Home> {
   }
 
   Future<bool> checkInternetConnection() async {
-    productListService.internetConnectionAvailability = await connectionService.isInternetConnectionAvailable();
+    productListService.internetConnectionAvailability =
+        await connectionService.isInternetConnectionAvailable();
     if (!productListService.internetConnectionAvailability) {
       productListService.internetConnectionAvailability = false;
       productListService.isProductLoading = false;
-      productListService.addProductError('Internet connection is currently no available');
+      productListService
+          .addProductError('Internet connection is currently no available');
     }
     return productListService.internetConnectionAvailability;
   }
 
   Future<void> getAuth() async {
-    productListService.internetConnectionAvailability = await checkInternetConnection();
+    productListService.internetConnectionAvailability =
+        await checkInternetConnection();
     if (!productListService.internetConnectionAvailability) {
       return;
     }
 
     // Authenticate User and look for credential errors
     authServiceResponse = await AuthService.login();
-    if (authServiceResponse.statusCode == 200 && authServiceResponse.error != 'Error Response') {
+    if (authServiceResponse.statusCode == 200 &&
+        authServiceResponse.error != 'Error Response') {
       productListService.isProductLoading = false;
       getProducts();
     } else {
@@ -83,7 +90,8 @@ class _HomeState extends State<Home> {
     productListService.isProductLoading = true;
 
     // Make sure we did not loose connectivity since our last products fetch
-    productListService.internetConnectionAvailability = await checkInternetConnection();
+    productListService.internetConnectionAvailability =
+        await checkInternetConnection();
     if (!productListService.internetConnectionAvailability) {
       return;
     }
@@ -106,7 +114,8 @@ class _HomeState extends State<Home> {
           initialData: const [],
           stream: productListService.getProductsList,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
-            if (snapshot.hasData && snapshot.connectionState == ConnectionState.active) {
+            if (snapshot.hasData &&
+                snapshot.connectionState == ConnectionState.active) {
               final productsList = snapshot.data as List<ProductModel>;
               return Text('Products: ${productsList.length}');
             } else {
@@ -120,18 +129,19 @@ class _HomeState extends State<Home> {
           const SizedBox(width: 4),
           ValueListenableBuilder(
             valueListenable: selectedListType,
-            builder: (BuildContext context, SelectedListType value, Widget? child) {
+            builder:
+                (BuildContext context, SelectedListType value, Widget? child) {
               return DropdownButtonHideUnderline(
                 child: DropdownButton(
                   value: selectedListType.value.name.toLowerCase(),
                   focusColor: Colors.transparent,
                   style: TextStyle(color: Theme.of(context).primaryColorLight),
-                  dropdownColor: Theme.of(context).backgroundColor,
-                  items: [
+                  dropdownColor: Theme.of(context).colorScheme.background,
+                  items: const [
                     DropdownMenuItem(
                       value: 'card',
                       child: Row(
-                        children: const [
+                        children: [
                           Icon(Icons.view_agenda_outlined),
                           SizedBox(width: 4),
                           Text('Card'),
@@ -141,7 +151,7 @@ class _HomeState extends State<Home> {
                     DropdownMenuItem(
                       value: 'list1',
                       child: Row(
-                        children: const [
+                        children: [
                           Icon(Icons.view_day_outlined),
                           SizedBox(width: 4),
                           Text('List 1'),
@@ -151,7 +161,7 @@ class _HomeState extends State<Home> {
                     DropdownMenuItem(
                       value: 'list2',
                       child: Row(
-                        children: const [
+                        children: [
                           Icon(Icons.view_list_outlined),
                           SizedBox(width: 4),
                           Text('List 2'),
@@ -160,9 +170,13 @@ class _HomeState extends State<Home> {
                     ),
                   ],
                   onChanged: (selectedValue) {
-                    if (selectedValue != selectedListType.value.name.toLowerCase()) {
-                      selectedListType.value = SelectedListType.values.firstWhere((element) =>
-                        element.name == selectedValue.toString().toLowerCase(),
+                    if (selectedValue !=
+                        selectedListType.value.name.toLowerCase()) {
+                      selectedListType.value =
+                          SelectedListType.values.firstWhere(
+                        (element) =>
+                            element.name ==
+                            selectedValue.toString().toLowerCase(),
                       );
                       productListService.refreshCurrentListProducts();
                     }
@@ -195,13 +209,23 @@ class _HomeState extends State<Home> {
                 if (snapshot.hasError) {
                   return StatusMessage(
                     message: '${snapshot.error}',
-                    bannerMessage: !productListService.internetConnectionAvailability ? 'none' : 'error',
-                    bannerColor: !productListService.internetConnectionAvailability ? Colors.yellow : Colors.red,
-                    textColor: !productListService.internetConnectionAvailability ? Colors.black : Colors.white,
+                    bannerMessage:
+                        !productListService.internetConnectionAvailability
+                            ? 'none'
+                            : 'error',
+                    bannerColor:
+                        !productListService.internetConnectionAvailability
+                            ? Colors.yellow
+                            : Colors.red,
+                    textColor:
+                        !productListService.internetConnectionAvailability
+                            ? Colors.black
+                            : Colors.white,
                   );
                 } else if (snapshot.hasData) {
                   final productsList = snapshot.data as List<ProductModel>;
 
+                  debugPrint('productsList: $productsList,');
                   return ProductsListView(
                     productsList: productsList,
                     scrollController: scrollController,
